@@ -74,14 +74,17 @@ FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`;
 <img width="193" alt="image" src="https://github.com/MEGH0401/megh/assets/159043052/b1b7a9c0-f24d-4f18-91c7-44c4476a87b7">
 
 9.  Calculate the average trip distance for each day of the week
-    ```SQL
-    SELECT EXTRACT(DAYOFWEEK FROM trip_start_timestamp) AS day_of_week, AVG(trip_miles) AS avg_trip_distance
-    FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
-    GROUP BY day_of_week
-    ORDER BY day_of_week;
-    ```
+    SELECT 
+    wsi.date, 
+    wsi.country_region, 
+    coda.new_confirmed,
+    FROM `bigquery-public-data.covid19_vaccination_search_insights.covid19_vaccination_search_insights` AS wsi
+    LEFT JOIN `bigquery-public-data.covid19_open_data.covid19_open_data` AS coda
+    ON wsi.date = coda.date AND wsi.country_region = coda.country_name
+    LIMIT 5;
+    
+<img width="468" alt="image" src="https://github.com/MEGH0401/megh/assets/159043052/c45a1931-556f-4063-8e5e-ed2158977259">
 
-<img width="218" alt="image" src="https://github.com/MEGH0401/megh/assets/159043052/0dcae59b-661f-4630-86f9-d47c2b3d31af">
 
 10.  Get the top 5 pickup locations with the highest average fare
      ```SQL
